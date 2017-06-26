@@ -42,3 +42,23 @@ Here is my context:  { awsRequestId: 'id',
 "Everything is ok !"
 ✨  Done in 2.05s.
 `````
+
+## lambda-kinesis-example
+
+First, you need to create a Kinesis Stream in your AWS Account which will be integrated with this example lambda.
+
+After that, build the lambda data consumer executing the following commands:
+
+````
+cd ./lambda-data-consumer
+yarn && yarn package
+````
+
+Finally, set up a Lambda in your AWS Account with a trigger to the recently created Kinesis and add the zip file `lambda-data-consumer.zip` created in `./lambda-kinesis-example/lambda-data-consumer/.serverless`.
+
+To see the lambda processing the data, go to `./data-producer` folder, add your credentials in `./start.sh` and run from `data-producer` folder the following command:
+
+````
+sh start.sh
+````
+

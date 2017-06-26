@@ -5,6 +5,4 @@ export STREAM_NAME=SampleKinesisStream
 export POOLING_TIME=1000
 export MESSAGES_PER_BATCH=50
 
-cd ./data-producer
-
 yarn start
