@@ -1,0 +1,9 @@
+service: lambda-example
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+functions:
+  lambda-example:
+    handler: lambda.handler

@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# npm logs
+npm-debug.log
+
+# another type of files
+.env
+jspm_packages
+.serverless

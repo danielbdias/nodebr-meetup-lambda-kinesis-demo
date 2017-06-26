@@ -1,0 +1,20 @@
+{
+  "name": "data-producer",
+  "version": "1.0.0",
+  "description": "Sample kinesis data generator",
+  "main": "producer.js",
+  "scripts": {
+    "start": "node producer.js",
+    "lint": "standard"
+  },
+  "dependencies": {
+    "aws-sdk": "2.77.0"
+  },
+  "devDependencies": {
+    "standard": "10.0.2"
+  },
+  "engines": {
+    "node": "6.10.2",
+    "npm": "3.10.10"
+  }
+}
