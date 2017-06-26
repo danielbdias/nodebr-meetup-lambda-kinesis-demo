@@ -3,8 +3,8 @@
 Here is the sources used in the presentation: "Processando dados com Node.js, AWS Lambda e Kinesis" (Processing data with Node.js, AWS Lambda and Kinesis)
 
 The prerequisites to execute this code is:
+- Node.js 6.10.2
 - yarn (to install the dependencies for every code)
-- docker (to exec the lambda + kinesis examples)
 
 The code is structured as follows:
 
