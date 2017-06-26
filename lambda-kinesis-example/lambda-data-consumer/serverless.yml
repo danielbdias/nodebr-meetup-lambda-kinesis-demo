@@ -1,0 +1,9 @@
+service: lambda-data-consumer
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+functions:
+  lambda-data-consumer:
+    handler: lambda.handler

@@ -1,7 +1,7 @@
 // Based in Scup's kinesis-generator at kinesis-interface-demo
 // at https://github.com/scup/kinesis-interface-demo/blob/master/kinesis-generator
 
-const AWS = require('aws-sdk')
+const KinesisClient = require('./kinesis')
 
 const settings = {
   aws: {
@@ -16,40 +16,38 @@ const settings = {
   messagesPerBatch: process.env.MESSAGES_PER_BATCH
 }
 
-console.log('Producer config:' + JSON.stringify(settings));
+function sendMessage () {
+  const poolingTime = settings.poolingTime
+  const messagesPerBatch = settings.messagesPerBatch
 
-const kinesis = new AWS.Kinesis({
-  region: settings.aws.region,
-  accessKeyId: settings.aws.accessKeyId,
-  secretAccessKey: settings.aws.secretAccessKey
-})
+  const streamName = settings.kinesis.streamName
+  const partitionKey = 'demo-producer'
+  const promises = []
 
-const POOLING_TIME = settings.poolingTime
-const MESSAGES_PER_BATCH = settings.messagesPerBatch
-
-function sendMessage() {
-  const data = {
-    StreamName: settings.kinesis.streamName,
-    Records: []
-  }
-
-  for (const i = 0; i < MESSAGES_PER_BATCH; i++) {
-    data.Records.push({
-      Data: 'Producer: sample data ' + new Date().getTime() + '_' + i,
-      PartitionKey: 'demo-producer'
-    })
-  }
-
-  kinesis.putRecords(data, function (err, result) {
-    if (err) {
-      console.error('Error: ' + JSON.stringify(err))
-      return
+  for (let i = 0; i < messagesPerBatch; i++) {
+    const data = {
+      description: 'Producer: sample data #' + i,
+      code: i
     }
 
-    console.log('Producer: messages sent to kinesis')
-  })
+    const dataAsString = JSON.stringify(data)
 
-  setTimeout(sendMessage, POOLING_TIME)
+    promises.push(
+      KinesisClient.putRecord(streamName, dataAsString, partitionKey)
+    )
+  }
+
+  return Promise.all(promises)
+    .catch(err => {
+      console.error('Error: ' + JSON.stringify(err))
+    })
+    .then(() => {
+      console.log('Producer: messages sent to kinesis')
+      setTimeout(sendMessage, poolingTime)
+    })
 }
 
+console.log('Producer config:' + JSON.stringify(settings))
+
+KinesisClient.init(settings.aws)
 sendMessage()

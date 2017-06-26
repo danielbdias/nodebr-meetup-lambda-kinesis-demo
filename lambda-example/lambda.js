@@ -1,4 +1,4 @@
-module.exports.handler = function LambdaFunction(event, context, callback) {
+module.exports.handler = function LambdaFunction (event, context, callback) {
   try {
     console.log('Hello, I am a simple lambda function !')
 
@@ -7,6 +7,7 @@ module.exports.handler = function LambdaFunction(event, context, callback) {
 
     return callback(null, 'Everything is ok !')
   } catch (error) {
-    return callback('Houston, we have a problem... Problem: ' + error)
+    const errorMessage = 'Houston, we have a problem... Problem: ' + error
+    return callback(errorMessage)
   }
 }

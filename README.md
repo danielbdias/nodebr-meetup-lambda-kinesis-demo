@@ -21,7 +21,7 @@ yarn start
 Which will return:
 
 `````
-➜  example-01 git:(master) ✗ yarn start
+➜  my-terminal> yarn start
 yarn start v0.24.6
 $ serverless invoke local --function lambda-example --path payload.json
 Hello, I am a simple lambda function !
